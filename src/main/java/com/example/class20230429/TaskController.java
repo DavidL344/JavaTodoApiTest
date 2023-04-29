@@ -1,5 +1,6 @@
 package com.example.class20230429;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,27 +10,29 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
     @GetMapping("")
-    public List<String> getAllTasks() {
-        return new ArrayList<String>();
+    public List<TodoList> getAllTasks() {
+        return new ArrayList<>();
     }
 
     @PostMapping("")
-    public String createTask(@RequestBody String task) {
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public TodoList createTask(@RequestBody TodoList task) {
         return task;
     }
 
     @GetMapping("/{id}")
-    public String getTask(@PathVariable("id") String id) {
-        return id;
+    public TodoList getTask(@PathVariable("id") String id) {
+        return new TodoList();
     }
 
     @PutMapping("/{id}")
-    public String updateTask(@PathVariable("id") String id, @RequestBody String task) {
+    public TodoList updateTask(@PathVariable("id") String id, @RequestBody TodoList task) {
         return task;
     }
 
     @DeleteMapping("/{id}")
-    public String deleteTask(@PathVariable("id") String id) {
-        return id;
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteTask(@PathVariable("id") String id) {
+        return;
     }
 }
